@@ -1,7 +1,7 @@
 import streamlit as st
 import PyPDF2
 from groq import Groq
-
+import os
 # 1. Page Configuration (Website-inte thalakkettu)
 st.set_page_config(page_title="AI Resume Analyzer", page_icon="🤖")
 
@@ -14,7 +14,7 @@ def extract_text_from_pdf(pdf_file):
     return text
 
 # 3. Groq AI Analysis function
-def analyze_resume(resume_text, api_key):
+def analyze_resume(resume_text):
     client = Groq(api_key=api_key)
     prompt = f"Analyze this resume for 80k salary AI/Python job. Candidate has 8 yrs Sales exp. Give score (0-10) and 3 tech changes in Malayalam: {resume_text}"
     
@@ -29,7 +29,8 @@ st.title("🤖 AI Resume Analyzer")
 st.write("Ninte resume upload cheyyu, AI athu analyze cheythu tharum!")
 
 # API Key - Ithu security-kku vendi UI-il ninnu vangiikkunnu
-api_key = st.text_input("Enter Groq API Key:", type="password")
+import os 
+api_key = st.secrets["GROQ_API_KEY"]
 
 # File Uploader - Ippo computer-il ninnu file select cheyyaam
 uploaded_file = st.file_uploader("Upload ninte Resume (PDF)", type="pdf")
