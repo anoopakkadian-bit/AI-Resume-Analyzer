@@ -15,7 +15,7 @@ def extract_text_from_pdf(pdf_file):
 
 # 3. Groq AI Analysis function
 def analyze_resume(resume_text):
-    client = Groq(api_key=api_key)
+    client = Groq(api_key=st.secrets["GROQ_API_KEY"])
     prompt = f"Analyze this resume for 80k salary AI/Python job. Candidate has 8 yrs Sales exp. Give score (0-10) and 3 tech changes in Malayalam: {resume_text}"
     
     response = client.chat.completions.create(
@@ -36,12 +36,12 @@ api_key = st.secrets["GROQ_API_KEY"]
 uploaded_file = st.file_uploader("Upload ninte Resume (PDF)", type="pdf")
 
 if st.button("Analyze Resume"):
-    if uploaded_file is not None and api_key:
+    if uploaded_file is not None:
         with st.spinner('AI ninte resume nokkukayaanu...'):
             # Text edukunnu
             text = extract_text_from_pdf(uploaded_file)
             # AI analysis edukunnu
-            result = analyze_resume(text, api_key)
+            result = analyze_resume(text)
             
             st.success("Analysis Completed!")
             st.markdown("### 📢 AI Result:")
