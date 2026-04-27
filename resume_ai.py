@@ -47,4 +47,5 @@ if st.button("Analyze Resume"):
             st.markdown("### 📢 AI Result:")
             st.write(result)
     else:
+    
         st.error("Dayaayi API Key-yum Resume-yum nalkuka!")
